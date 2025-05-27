@@ -151,8 +151,8 @@ class KnowledgeOasis:
         self.question_label.pack(pady=10)
 
         self.radio_buttons = []
-        for i in range(4):
-            radio = tk.Radiobutton(root, text="", variable=self.user_answer, value=chr(ord('a') + i), command=self.check_answer)
+        for idx in range(4):
+            radio = tk.Radiobutton(root, text="", variable=self.user_answer, value=chr(ord('a') + idx), command=self.check_answer)
             self.radio_buttons.append(radio)
             radio.pack(anchor="w", padx=20)
 
@@ -167,29 +167,29 @@ class KnowledgeOasis:
                 lines = file.readlines()
 
             questions = []
-            i = 0
-            while  i < len(lines):
-                if lines[i].startswith("Question:"):
-                    question = lines[i].strip().replace("Question: ", "")
-                    choice_a = lines[i+1].strip().replace("a.): ", "")
-                    choice_b = lines[i+2].strip().replace("b.): ", "")
-                    choice_c = lines[i+3].strip().replace("c.): ", "")
-                    choice_d = lines[i+4].strip().replace("d.): ", "")
-                    correct = lines[i+5].strip().replace("correct answer: ", "").lower()
+            idx = 0
+            while  idx < len(lines):
+                if lines[idx].startswith("Question:"):
+                    question = lines[idx].strip().replace("Question: ", "")
+                    choice_a = lines[idx+1].strip().replace("a.): ", "")
+                    choice_b = lines[idx+2].strip().replace("b.): ", "")
+                    choice_c = lines[idx+3].strip().replace("c.): ", "")
+                    choice_d = lines[idx+4].strip().replace("d.): ", "")
+                    correct = lines[idx+5].strip().replace("correct answer: ", "").lower()
                     questions.append({
                         "question": question,
                         "choices": {"a": choice_a, "b": choice_b, "c": choice_c, "d": choice_d},
                         "correct": correct
                     })
-                    i += 6
+                    idx += 6
                 else:
-                    i += 1
+                    idx += 1
             return questions
         except FileNotFoundError:
             messagebox.showerror("Error", f"The file '{filename}' was not found.")
             return []
-        except Exception as e:
-            messagebox.showerror("Error", f"An error occurred while loading questions: {str(e)}")
+        except Exception as err:
+            messagebox.showerror("Error", f"An error occurred while loading questions: {str(err)}")
             return []
         
     def load_current_question(self):
@@ -198,8 +198,8 @@ class KnowledgeOasis:
             self.question_label.config(text=question_data["question"])
 
             choices = list(question_data["choices"].values())
-            for i, button in enumerate(self.radio_buttons):
-                button.config(text=f"{chr(ord('a') + i)}) {choices[i]}", state=tk.NORMAL)
+            for idx, button in enumerate(self.radio_buttons):
+                button.config(text=f"{chr(ord('a') + idx)}) {choices[idx]}", state=tk.NORMAL)
             self.user_answer.set(None)
             self.feedback_label.config(text="") 
             self.next_button.config(state=tk.DISABLED, text="Next Question", command=self.next_question)
