@@ -1,0 +1,123 @@
+# My previous assignment which is the assignment 10 is already in OOP so I will just copy that and paste here
+# Pseudocode
+#CLASS KnowledgeOasis
+#  CONSTRUCTOR(root)
+#    #SET self.root TO root
+#    #SET window title TO "Knowledge Oasis"
+#    #LOAD questions FROM "Questionnaire.txt" using load_questions method
+#    #SET self.current_question_index TO 0
+#    #SET self.score TO 0
+#    #CREATE a StringVar called self.user_answer
+#    #CREATE a Label called self.feedback_label with empty text and pack it
+#
+#    #IF no questions loaded
+#    #  #SHOW error message "No questions found in the file."
+#    #  #DESTROY self.root
+#    #  #RETURN
+#    #END IF
+#
+#    #RANDOMIZE the order of questions:
+#    #SHUFFLE the self.questions list
+#
+#    #CREATE a Label called self.question_label with wrapping and left justification and pack it
+#    #CREATE an empty list called self.radio_buttons
+#    #FOR i FROM 0 TO 3
+#    #  #CREATE a Radiobutton
+#    #  #SET text to character 'a' + i followed by a parenthesis and space
+#    #  #SET variable to self.user_answer
+#    #  #SET value to character 'a' + i
+#    #  #SET command to self.check_answer
+#    #  #ADD the Radiobutton to self.radio_buttons list
+#    #  #PACK the Radiobutton with left alignment and padding
+#    #END FOR
+#
+#    #CREATE a Button called self.next_button
+#    #  #SET text to "Next Question"
+#    #  #SET command to self.next_question
+#    #  #SET state to DISABLED
+#    #  #PACK the Button with padding
+#    #
+#    #CALL self.load_current_question()
+#
+#  METHOD load_questions(filename)
+#    #TRY
+#    #  #OPEN filename in read mode AS file
+#    #  #READ all lines from file into a list called lines
+#    #  #CREATE an empty list called questions
+#    #  #SET i TO 0
+#    #  #WHILE i IS less than the number of lines
+#    #    #IF the line at index i STARTS WITH "Question:"
+#    #      #EXTRACT the question text
+#    #      #EXTRACT answer choice 'a'
+#    #      #EXTRACT answer choice 'b'
+#    #      #EXTRACT answer choice 'c'
+#    #      #EXTRACT answer choice 'd'
+#    #      #EXTRACT the correct answer (convert to lowercase)
+#    #      #CREATE a dictionary for the question with:
+#    #        #"question": question text
+#    #        #"choices": a dictionary of choices {'a': choice_a, 'b': choice_b, 'c': choice_c, 'd': choice_d}
+#    #        #"correct": correct answer
+#    #      #ADD the question dictionary to the questions list
+#    #      #INCREMENT i BY 6
+#    #    #ELSE
+#    #      #INCREMENT i BY 1
+#    #    #END IF
+#    #  #END WHILE
+#    #  #RETURN questions
+#    #CATCH FileNotFoundError
+#    #  #SHOW error message "The file '{filename}' was not found."
+#    #  #RETURN an empty list
+#    #CATCH other exceptions AS e
+#    #  #SHOW error message "An error occurred while loading questions: {e}"
+#    #  #RETURN an empty list
+#    #END TRY
+#
+#  METHOD load_current_question()
+#    #IF self.current_question_index IS less than the number of questions
+#    #  #GET the question data at self.current_question_index
+#    #  #SET the text of self.question_label to the question text
+#    #  #GET the list of choices from the question data
+#    #  #FOR i FROM 0 TO 3
+#    #    #SET the text of the Radiobutton at index i to character 'a' + i followed by a parenthesis and the corresponding choice
+#    #    #SET the state of the Radiobutton at index i to NORMAL
+#    #  #END FOR
+#    #  #SET self.user_answer to None (to deselect any previous choice)
+#    #  #SET the text of self.feedback_label to "" (clear previous feedback)
+#    #  #SET the state of self.next_button to DISABLED
+#    #  #SET the text of self.next_button to "Next Question"
+#    #  #SET the command of each Radiobutton to self.check_answer
+#    #ELSE
+#    #  #CALL self.show_results()
+#    #END IF
+#
+#  METHOD check_answer()
+#    #GET the selected answer from self.user_answer
+#    #IF a selected answer exists
+#    #  #GET the correct answer for the current question
+#    #  #IF selected answer IS equal to correct answer
+#    #    #SET the text of self.feedback_label to "You are CORRECT! MABUHAY!" with green color
+#    #    #INCREMENT self.score
+#    #  #ELSE
+#    #    #SET the text of self.feedback_label to "I am afraid you are WRONG! The correct answer was: {correct answer}" with red color
+#    #  #END IF
+#    #  #FOR each button in self.radio_buttons
+#    #    #SET the state of the button to DISABLED
+#    #    #SET the command of the button to None
+#    #  #END FOR
+#    #  #SET the state of self.next_button to NORMAL
+#    #END IF
+#
+#  METHOD next_question()
+#    #INCREMENT self.current_question_index
+#    #CALL self.load_current_question()
+#
+#  METHOD show_results()
+#    #SHOW info message "Quiz Finished" with text "Your final score is: {self.score} / {number of questions}"
+#    #DESTROY self.root
+#END CLASS
+#
+#IF the script is run directly
+#  #CREATE a main window called root
+#  #CREATE an instance of KnowledgeOasis with root
+#  #START the Tkinter event loop
+#END IF
