@@ -55,3 +55,11 @@ class QuesitionItems:
         self.choice_c = ""
         self.choice_d = ""
         self.correct_answer = ""
+
+    def get_user_input(self):
+        self.question = input("Enter your desired question: ").capitalize()
+        self.choice_a = input("Enter choice letter a: ")
+        self.choice_b = input("Enter choice letter b: ")
+        self.choice_c = input("Enter choice letter c: ")
+        self.choice_d = input("Enter choice letter d: ")
+        self.correct_answer = input("Which letter is correct among the choices a, b, c, and d?: ")
