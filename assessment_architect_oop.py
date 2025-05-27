@@ -47,7 +47,7 @@ quiz()
 # Create an object that is the instance of the class
 # Call the program
 
-class QuesitionItems:
+class QuestionItems:
     def __init__(self):
         self.question = ""
         self.choice_a = ""
@@ -72,3 +72,12 @@ class QuesitionItems:
         file.write("d.): " + self.choice_d + "\n")
         file.write("correct answer: " + self.correct_answer + "\n")
         print(" ")
+
+class Assessment:
+    def __init__(self):
+        self.filename = "Questionaaire.txt"
+
+    def quiz(self):
+        with open(self.filename, "a") as file:
+            while True:
+                question = QuesitionItems
