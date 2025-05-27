@@ -45,7 +45,7 @@ class QuestionItems:
 
 class Assessment:
     def __init__(self):
-        self.filename = "Questionaaire.txt"
+        self.filename = "Questionnaire.txt"
 
     def quiz(self):
         with open(self.filename, "a") as file:
