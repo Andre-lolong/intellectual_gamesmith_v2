@@ -1,0 +1,30 @@
+Question: What is 1 + 1?
+a.): 1
+b.): 2
+c.): 3
+d.): 4
+correct answer: b
+Question: & c:/users/andre/appdata/local/programs/python/python313/python.exe c:/users/andre/intellectual_gamesmith_v2/assessment_architect_oop.py
+a.): 1
+b.): 2
+c.): 3
+d.): Invalid Question (Bonus)
+correct answer: d
+Question: How many days are in january?
+a.): 28
+b.): 29
+c.): 30
+d.): 31
+correct answer: d
+Question: How many legs does a typical spider has?
+a.): 2
+b.): 4
+c.): 6
+d.): 8
+correct answer: d
+Question: How many hands does a typical clock has?
+a.): 1
+b.): 2
+c.): 3
+d.): 4
+correct answer: c
