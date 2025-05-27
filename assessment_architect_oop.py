@@ -80,4 +80,16 @@ class Assessment:
     def quiz(self):
         with open(self.filename, "a") as file:
             while True:
-                question = QuesitionItems
+                question = QuestionItems()
+                question.get_user_input()
+                question.write_file(file)
+
+                continuity = input("Do you want to add another question? (y/n): ")
+                if continuity.lower() != 'y':
+                    break
+
+        print("Your question(s) and choice(s) as well as the right answer has been added to the file")
+        print("Your questionnaire is now ready!")
+
+test = Assessment()
+test.quiz()
