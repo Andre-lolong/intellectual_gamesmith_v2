@@ -29,9 +29,7 @@ def quiz():
 quiz()
 
 # Create a class 
-class Questionnaire:
 # Create a constructor for the 6 inputs
-    def __init__(self):
 #           question
 #           choice_a
 #           choice_b
@@ -49,3 +47,11 @@ class Questionnaire:
 # Create an object that is the instance of the class
 # Call the program
 
+class QuesitionItems:
+    def __init__(self):
+        self.question = ""
+        self.choice_a = ""
+        self.choice_b = ""
+        self.choice_c = ""
+        self.choice_d = ""
+        self.correct_answer = ""
