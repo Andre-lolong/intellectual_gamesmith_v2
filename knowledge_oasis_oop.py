@@ -121,3 +121,117 @@
 #  #CREATE an instance of KnowledgeOasis with root
 #  #START the Tkinter event loop
 #END IF
+
+##### I copied my previous code since it is already in OOP ###
+### I fixed the previous mistake, which is the single letter variable ###
+
+import tkinter as tk
+from tkinter import messagebox
+import random
+
+class KnowledgeOasis:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Knowledge Oasis")
+        self.questions = self.load_questions("Questionnaire.txt")
+        self.current_question_index = 0
+        self.score = 0
+        self.user_answer = tk.StringVar()
+        self.feedback_label = tk.Label(root, text="")
+        self.feedback_label.pack(pady=5)
+
+        if not self.questions:
+            messagebox.showerror("Error", "No questions found in the file.")
+            self.root.destroy()
+            return
+        
+        random.shuffle(self.questions)
+
+        self.question_label = tk.Label(root, text="", wraplength=400, justify="left")
+        self.question_label.pack(pady=10)
+
+        self.radio_buttons = []
+        for i in range(4):
+            radio = tk.Radiobutton(root, text="", variable=self.user_answer, value=chr(ord('a') + i), command=self.check_answer)
+            self.radio_buttons.append(radio)
+            radio.pack(anchor="w", padx=20)
+
+        self.next_button = tk.Button(root, text="Next Question", command=self.next_question, state=tk.DISABLED)
+        self.next_button.pack(pady=10)
+
+        self.load_current_question()
+
+    def load_questions(self, filename):
+        try:
+            with open(filename, "r") as file:
+                lines = file.readlines()
+
+            questions = []
+            i = 0
+            while  i < len(lines):
+                if lines[i].startswith("Question:"):
+                    question = lines[i].strip().replace("Question: ", "")
+                    choice_a = lines[i+1].strip().replace("a.): ", "")
+                    choice_b = lines[i+2].strip().replace("b.): ", "")
+                    choice_c = lines[i+3].strip().replace("c.): ", "")
+                    choice_d = lines[i+4].strip().replace("d.): ", "")
+                    correct = lines[i+5].strip().replace("correct answer: ", "").lower()
+                    questions.append({
+                        "question": question,
+                        "choices": {"a": choice_a, "b": choice_b, "c": choice_c, "d": choice_d},
+                        "correct": correct
+                    })
+                    i += 6
+                else:
+                    i += 1
+            return questions
+        except FileNotFoundError:
+            messagebox.showerror("Error", f"The file '{filename}' was not found.")
+            return []
+        except Exception as e:
+            messagebox.showerror("Error", f"An error occurred while loading questions: {str(e)}")
+            return []
+        
+    def load_current_question(self):
+        if self.current_question_index < len(self.questions):
+            question_data = self.questions[self.current_question_index]
+            self.question_label.config(text=question_data["question"])
+
+            choices = list(question_data["choices"].values())
+            for i, button in enumerate(self.radio_buttons):
+                button.config(text=f"{chr(ord('a') + i)}) {choices[i]}", state=tk.NORMAL)
+            self.user_answer.set(None)
+            self.feedback_label.config(text="") 
+            self.next_button.config(state=tk.DISABLED, text="Next Question", command=self.next_question)
+            for button in self.radio_buttons:
+                button.config(command=self.check_answer) 
+        else:
+            self.show_results()
+
+    def check_answer(self):
+        selected_answer = self.user_answer.get()
+        if selected_answer:
+            correct_answer = self.questions[self.current_question_index]["correct"]
+            if selected_answer == correct_answer:
+                self.feedback_label.config(text="You are CORRECT! MABUHAY!", fg="green")
+                self.score += 1
+            else:
+                self.feedback_label.config(text=f"I am afraid you are WRONG! The correct answer was: {correct_answer}", fg="red")
+
+            for button in self.radio_buttons:
+                button.config(state=tk.DISABLED, command=None)
+
+            self.next_button.config(state=tk.NORMAL)
+
+    def next_question(self):
+        self.current_question_index += 1
+        self.load_current_question()
+
+    def show_results(self):
+        messagebox.showinfo("Quiz Finished", f"Your final score is: {self.score}/{len(self.questions)}")
+        self.root.destroy()
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = KnowledgeOasis(root)
+    root.mainloop()
