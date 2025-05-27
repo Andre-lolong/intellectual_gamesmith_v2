@@ -27,3 +27,22 @@ def quiz():
     print("Your questionnaire is now ready!")
         
 quiz()
+
+# Create a class 
+# Create a constructor for the 6 inputs
+#           question
+#           choice_a
+#           choice_b
+#           choice_c
+#           choice_d
+#           correct_answer
+#   create a method to get the user input
+#   write the given inputs to the file
+# Create another constructor for continuation of the program
+#   set a file name where the code will be saved
+# Create a method for the main loop to happen
+#       use while True
+#       ask if the user wants another question or if the user wants to end the program
+# Allow the user to know that the code is ready
+# Create an object that is the instance of the class
+# Call the program
