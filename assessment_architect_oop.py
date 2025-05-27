@@ -63,3 +63,12 @@ class QuesitionItems:
         self.choice_c = input("Enter choice letter c: ")
         self.choice_d = input("Enter choice letter d: ")
         self.correct_answer = input("Which letter is correct among the choices a, b, c, and d?: ")
+
+    def write_file(self, file):
+        file.write("Question: " + self.question + "\n")
+        file.write("a.): " + self.choice_a + "\n")
+        file.write("b.): " + self.choice_b + "\n")
+        file.write("c.): " + self.choice_c + "\n")
+        file.write("d.): " + self.choice_d + "\n")
+        file.write("correct answer: " + self.correct_answer + "\n")
+        print(" ")
